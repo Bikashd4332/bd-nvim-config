@@ -95,8 +95,9 @@ Plug 'nvim-telescope/telescope.nvim'
 " Version control stuffs "
 Plug 'sindrets/diffview.nvim'
 
-" github integration
+" git or github integration
 Plug 'pwntester/octo.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Language extension --- > currently only (js)
 Plug 'maxmellon/vim-jsx-pretty',
@@ -236,7 +237,7 @@ lua << END
     }
   }
 END
-" config for octo.nvim
+" octo.nvim
 lua << END
   require'octo'.setup({
     default_remote = {"origin"},
@@ -248,5 +249,36 @@ lua << END
       pull_requests = {
       },
     }
+  })
+END
+" gitsigns.nvim
+lua << END
+  require'gitsigns'.setup({
+  -- what signs (color, text) should be used for dispaying hunks
+    signs = {
+      add          = { hl='GitSignsAdd',    text='|', numhl='GitSignsAddNr', linehl='GitSignsAddLn'},
+      change       = { hl='GitSignsChange', text='|', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+      delete       = { hl='GitSignsDelete', text='_', numhl='GitsignsDeleteNr', linehl='GitsignsDeleteLn'},
+      topdelete    = { hl='GitSignsDelete', text='-', numhl='GitsignsDeleteNr', linehl='GitsignsDeleteLn'},
+      changedelete = { hl='GitSignsChange', text='~', numhl='GitSignsChagneNr', linehl='GitSignsChagneLn'},
+    },
+    numhl = false,
+    linehl = false,
+  -- ofcourse our keymaps
+    keymaps = {
+      noremap = true,
+      ['n ]c'] =  { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
+      ['n [c'] =  { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
+
+      ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({ vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>hu'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+      ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+      ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame()<CR>',
+    },
+    current_line_blame_delay = 1000,
+    current_line_blame_position = 'eol',
+    update_debouce = 100,
   })
 END
