@@ -1,9 +1,13 @@
 " config location
-let s:configpath = "~/.config/nvim"
+let s:configpath = $HOME . "/.config/nvim"
+
+set encoding=UTF-8
+set guifont=DroidSansMono\ Nerd\ Font:h11
 
 " mark buffers hidden
 set hidden
 set nohlsearch
+set splitbelow
 
 " making vim not crate any
 " swap file or backup
@@ -13,6 +17,7 @@ set nowritebackup
 " use 2 spaces as indentation
 set tabstop=2 expandtab softtabstop=2 
 set shiftwidth=2
+set smartindent
 
 " Enable relative line number
 set relativenumber
@@ -34,7 +39,7 @@ tmap <M-j> <C-\><C-N><M-j>
 tmap <M-h> <C-\><C-N><M-h>
 
 " removing highlight after finishing a search.
-nnoremap <silent><nowait> <leader>g :<C-u>noh<cr>
+nnoremap <silent><nowait> <leader>t :<C-u>10split term://zsh<cr>
 
 " toggle Explorer with Lexplorer
 nnoremap <silent><nowait> <leader>e :<C-u>45 Lexplore<cr>
@@ -59,6 +64,7 @@ inoremap . .<c-g>u
 inoremap ( (<c-g>u
 inoremap [ [<c-g>u
 inoremap { {<c-g>u
+inoremap _ _<c-g>u
 
 " make jumplist add those lines that we jump relatively
 nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . "k"
@@ -79,9 +85,18 @@ call plug#begin(s:configpath . "/plugged")
 Plug 'tssm/fairyfloss.vim' 
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" fuzzy file finder integration
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Version control stuffs "
+Plug 'sindrets/diffview.nvim'
+
+" github integration
+Plug 'pwntester/octo.nvim'
 
 " Language extension --- > currently only (js)
 Plug 'maxmellon/vim-jsx-pretty',
@@ -169,6 +184,69 @@ nnoremap <silent><nowait> <space>c :<C-u>CocList commands<cr>
 nnoremap <silent><nowait> <space>o :<C-u>CocList outline<cr>
 
 " List the files via FZF
-nnoremap <silent><nowait> <space><space> :<C-u>GFiles<cr>
+nnoremap <silent><nowait> <space><space> :<C-u>Telescope find_files<cr>
 " Fuzzy search for helptags
-nnoremap <silent><nowait> <space>h :<C-u>Helptags<cr>
+nnoremap <silent><nowait> <space>h :<C-u>Telescope help_tags<cr>
+" Find file using grepping keywords
+nnoremap <silent><nowait> <space>/ :<C-u>Telescope live_grep<cr>
+
+" ---------------- Lua Code ----------------------
+
+" config for nvim-web-devicons
+lua << END
+  local nvim_web_devicons = require('nvim-web-devicons');
+  nvim_web_devicons.setup {
+    override = {};
+    default = true
+  }
+  nvim_web_devicons.get_icons()
+END
+
+" config for diffview.nvim
+nnoremap <space>gd :<C-u>DiffviewClose<cr>
+lua << END
+  local cb = require'diffview.config'.diffview_callback
+  require'diffview'.setup {
+    diff_binaries = false,
+    file_panel = {
+      width = 35,
+      use_icons = true
+    },
+    key_bindings = {
+      disable_defaults = true,
+      view = {
+        ["<tab>"] = cb("select_next_entry"),
+        ["<s-tab>"] = cb("select_prev_entry"),
+        ["e"] = cb("focus_files"),
+        ["b"] = cb("toggle_files"),
+      },
+      file_panel = {
+        ["j"] = cb("next_entry"),
+        ["k"] = cb("prev_entry"),
+        ["-"] = cb("toggle_stage_entry"),
+        ["o"] = cb("select_entry"),
+        ["S"] = cb("stage_all"),
+
+        ["U"] = cb("unstag_all"),
+        ["x"] = cb("restore_entry"),
+        ["R"] = cb("refresh_files"),
+        ["<tab>"] = cb("select_next_entry"),
+        ["<s-tab>"] = cb("select_prev_entry"),
+      }
+    }
+  }
+END
+" config for octo.nvim
+lua << END
+  require'octo'.setup({
+    default_remote = {"origin"},
+    file_panel = {
+      size = 10,
+      use_icons = true
+    },
+    mappings = {
+      pull_requests = {
+      },
+    }
+  })
+END
