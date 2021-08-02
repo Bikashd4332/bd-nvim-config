@@ -3,6 +3,7 @@ let s:configpath = $HOME . "/.config/nvim"
 
 set encoding=UTF-8
 set guifont=DroidSansMono\ Nerd\ Font:h11
+set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 
 " mark buffers hidden
 set hidden
@@ -42,7 +43,7 @@ tmap <M-h> <C-\><C-N><M-h>
 nnoremap <silent><nowait> <leader>t :<C-u>10split term://zsh<cr>
 
 " toggle Explorer with Lexplorer
-nnoremap <silent><nowait> <leader>e :<C-u>45 Lexplore<cr>
+nnoremap <silent><nowait> <leader>e :<C-u>Lexplore<cr>
 
 " for quick nvim config editing.
 execute  "nnoremap <silent><nowait> <leader>co :<C-u>70vs " . s:configpath . "/init.vim<cr>"
@@ -82,7 +83,9 @@ nnoremap <leader>j :m .+1<CR>==
 
 call plug#begin(s:configpath . "/plugged")
 
-Plug 'tssm/fairyfloss.vim' 
+" Plug 'tssm/fairyfloss.vim' 
+" Plug 'morhetz/gruvbox'
+Plug 'folke/tokyonight.nvim'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'kyazdani42/nvim-web-devicons'
@@ -107,7 +110,8 @@ Plug 'tpope/vim-commentary'
 call plug#end()
 
 set termguicolors
-colorscheme fairyfloss
+let g:tokyonight_style='storm'
+colorscheme tokyonight
 
 " <silent> in front of mapping throws no error 
 " in case if that fails.
@@ -190,6 +194,10 @@ nnoremap <silent><nowait> <space><space> :<C-u>Telescope find_files<cr>
 nnoremap <silent><nowait> <space>h :<C-u>Telescope help_tags<cr>
 " Find file using grepping keywords
 nnoremap <silent><nowait> <space>/ :<C-u>Telescope live_grep<cr>
+" list all available branches
+nnoremap <silent><nowait> <space>gb :<C-u>Telescope git_branches<cr>
+" list all available branches
+nnoremap <silent><nowait> <space>gs :<C-u>Telescope git_stashes<cr>
 
 " ---------------- Lua Code ----------------------
 
@@ -256,7 +264,7 @@ lua << END
   require'gitsigns'.setup({
   -- what signs (color, text) should be used for dispaying hunks
     signs = {
-      add          = { hl='GitSignsAdd',    text='|', numhl='GitSignsAddNr', linehl='GitSignsAddLn'},
+      add          = { hl='GitSignsAdd',    text='+', numhl='GitSignsAddNr', linehl='GitSignsAddLn'},
       change       = { hl='GitSignsChange', text='|', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
       delete       = { hl='GitSignsDelete', text='_', numhl='GitsignsDeleteNr', linehl='GitsignsDeleteLn'},
       topdelete    = { hl='GitSignsDelete', text='-', numhl='GitsignsDeleteNr', linehl='GitsignsDeleteLn'},
@@ -275,10 +283,10 @@ lua << END
       ['n <leader>hu'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
       ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
       ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame()<CR>',
+      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
     },
     current_line_blame_delay = 1000,
     current_line_blame_position = 'eol',
-    update_debouce = 100,
+    update_debounce = 100,
   })
 END
