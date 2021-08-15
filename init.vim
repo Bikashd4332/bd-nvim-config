@@ -5,22 +5,55 @@ set encoding=UTF-8
 set guifont=DroidSansMono\ Nerd\ Font:h11
 set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 
-" mark buffers hidden
+" do not unload a buffer and hidden; keep in memory
 set hidden
+
+" do not ring eny error bell on error
+set noerrorbells
+
+" do not wrap text , keep going on
+set nowrap
+
+"Also have a vertical bar to represent the wrapping limit
+set colorcolumn=100
+
+"do not keep highlighting the search text after search
 set nohlsearch
+
+" enable auto indent code
+set smartindent
+
+" always prefer bottom horizontal split
 set splitbelow
 
 " making vim not crate any
 " swap file or backup
+set backupcopy=yes
 set nobackup
+set noswapfile
 set nowritebackup
+
+" Please let me stay in the block cursor
+" even in insert mode.
+set guicursor=n-c-v:block-nCursor
+
+" lets make vim more responsive by
+" decreasing updatetime delay.
+let updatetime=50
+
+" fold configuration and fold level
+set foldmethod=indent
+set foldnestmax=2
+
+"scroll and also make the cursor reachable
+set scrolloff=8
 
 " use 2 spaces as indentation
 set tabstop=2 expandtab softtabstop=2 
 set shiftwidth=2
 set smartindent
 
-" Enable relative line number
+" Enable relative line number and show linenumber instead of just 0
 set relativenumber
 set number
 
@@ -28,16 +61,8 @@ set number
 " for better message dispay
 set cmdheight=2
 
-" Making window navigation easer.
-nnoremap <M-l> <C-w>l
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-" the same but for terminal buffers
-tmap <M-k> <C-\><C-N><M-k>
-tmap <M-l> <C-\><C-N><M-l>
-tmap <M-j> <C-\><C-N><M-j>
-tmap <M-h> <C-\><C-N><M-h>
+" map my leader to be space
+let mapleader=" "
 
 " removing highlight after finishing a search.
 nnoremap <silent><nowait> <leader>t :<C-u>10split term://zsh<cr>
@@ -45,11 +70,36 @@ nnoremap <silent><nowait> <leader>t :<C-u>10split term://zsh<cr>
 " toggle Explorer with Lexplorer
 nnoremap <silent><nowait> <leader>e :<C-u>Lexplore<cr>
 
+" Delete the current buffer
+nnoremap <silent><nowait> <leader>bd :<C-u>bd<CR>
+nnoremap <silent><nowait> <leader>b< :<C-u>bp<CR>
+nnoremap <silent><nowait> <leader>b> :<C-u>bn<CR>
+nnoremap <silent><nowait> <leader>fs :<C-u>w<CR>
+
+"A (very very)*n helpfull mapping which helps
+"to forget keeping track of caps lock toggle by using language mapping
+" ------
+"Execute :lmap and map every smallercase chars to its uppercase equivalent
+for c in range(char2nr('A'), char2nr('Z'))
+  execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
+  execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
+endfor
+
+" create an auto command which will toggle it off automatically for you
+autocmd InsertLeave * set iminsert=0
+" ------
+
 " for quick nvim config editing.
 execute  "nnoremap <silent><nowait> <leader>co :<C-u>70vs " . s:configpath . "/init.vim<cr>"
 
+" ------- Usefull application switch remaps -------
+nnoremap <silent><nowait> <leader>sl :<C-u>!open /Applications/Slack.app<CR>
+nnoremap <silent><nowait> <leader>br :<C-u>!open "/Applications/Brave Browser.app"<CR>
+
+
 " ----- popular remaps ------ "
 inoremap jk <Esc>
+inoremap JK <Esc>
 " making Y be just like C , D
 nnoremap Y y$
 
@@ -75,6 +125,7 @@ nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . "j"
  " in visual mode
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap J :m '>+1<CR>gv=gv
+
 " in normal mode
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
@@ -83,12 +134,18 @@ nnoremap <leader>j :m .+1<CR>==
 
 call plug#begin(s:configpath . "/plugged")
 
+Plug 'christoomey/vim-tmux-navigator'
+
 " Plug 'tssm/fairyfloss.vim' 
 " Plug 'morhetz/gruvbox'
 Plug 'folke/tokyonight.nvim'
 
+
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
 " fuzzy file finder integration
 Plug 'nvim-lua/popup.nvim'
@@ -99,7 +156,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'sindrets/diffview.nvim'
 
 " git or github integration
-Plug 'pwntester/octo.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 " Language extension --- > currently only (js)
@@ -110,7 +166,7 @@ Plug 'tpope/vim-commentary'
 call plug#end()
 
 set termguicolors
-let g:tokyonight_style='storm'
+let g:tokyonight_style='night'
 colorscheme tokyonight
 
 " <silent> in front of mapping throws no error 
@@ -120,6 +176,7 @@ colorscheme tokyonight
 " the available completion list. by emulating <C-n>
 "
 " in case of any backspace it refreshes the completion list
+let g:coc_disable_transparent_cursor=1
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -131,18 +188,12 @@ endfunction
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr>  <c-@> coc#refresh()
 endif
-
-" make <CR> auto select the first item from 
-" coc completion list.
-" inoremap <silent><expr> <cr> \
-"	pumvisible() ? coc#select_confirm()
-" 	\: "\<C-g>u\<CR><c-r>=coc#on_enter()\<CR>"
-
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -175,29 +226,29 @@ omap if <Plug>(coc-funcobj-i)
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Coc command for formatting with prettier.
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-imap <leader>f <Plug>(coc-format-selected)
-vmap <leader>f <Plug>(coc-format-selected)
 
 " Symbol renaming support like vscode
 nmap <leader>rn <Plug>(coc-rename)
 
 " List all the diagnostic.
-nnoremap <silent><nowait> <space>a :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>a :<C-u>CocList diagnostics<cr>
 " List all the available commands.
-nnoremap <silent><nowait> <space>c :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <leader>c :<C-u>CocList commands<cr>
 " find symbol for current document.
-nnoremap <silent><nowait> <space>o :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <leader>o :<C-u>CocList outline<cr>
 
 " List the files via FZF
-nnoremap <silent><nowait> <space><space> :<C-u>Telescope find_files<cr>
+nnoremap <silent><nowait> <leader><leader> :<C-u>Telescope find_files<cr>
 " Fuzzy search for helptags
-nnoremap <silent><nowait> <space>h :<C-u>Telescope help_tags<cr>
+nnoremap <silent><nowait> <leader>h :<C-u>Telescope help_tags<cr>
 " Find file using grepping keywords
-nnoremap <silent><nowait> <space>/ :<C-u>Telescope live_grep<cr>
+nnoremap <silent><nowait> <leader>/ :<C-u>Telescope live_grep<cr>
 " list all available branches
-nnoremap <silent><nowait> <space>gb :<C-u>Telescope git_branches<cr>
+nnoremap <silent><nowait> <leader>gb :<C-u>Telescope git_branches<cr>
 " list all available branches
-nnoremap <silent><nowait> <space>gs :<C-u>Telescope git_stashes<cr>
+nnoremap <silent><nowait> <leader>gs :<C-u>Telescope git_stashes<cr>
+" list all the opened buffers
+nnoremap <silent><nowait> <leader>bb :<C-u>Telescope buffers<cr>
 
 " ---------------- Lua Code ----------------------
 
@@ -212,7 +263,7 @@ lua << END
 END
 
 " config for diffview.nvim
-nnoremap <space>gd :<C-u>DiffviewClose<cr>
+nnoremap <leader>gd :<C-u>DiffviewClose<cr>
 lua << END
   local cb = require'diffview.config'.diffview_callback
   require'diffview'.setup {
@@ -245,20 +296,7 @@ lua << END
     }
   }
 END
-" octo.nvim
-lua << END
-  require'octo'.setup({
-    default_remote = {"origin"},
-    file_panel = {
-      size = 10,
-      use_icons = true
-    },
-    mappings = {
-      pull_requests = {
-      },
-    }
-  })
-END
+
 " gitsigns.nvim
 lua << END
   require'gitsigns'.setup({
@@ -280,6 +318,7 @@ lua << END
 
       ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
       ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({ vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>ha'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
       ['n <leader>hu'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
       ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
       ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
