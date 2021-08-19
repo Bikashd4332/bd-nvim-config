@@ -1,6 +1,3 @@
-" create an auto command which will toggle it off automatically for you
-autocmd InsertLeave * set iminsert=0
-
 call plug#begin("~/.config/nvim". "/plugged")
   " List of all plugins
   Plug 'christoomey/vim-tmux-navigator'
