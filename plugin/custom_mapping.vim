@@ -56,13 +56,16 @@ let mapleader=" "
   nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . "j"
 
   " make current/visual selelcted line[s] move
-   " in visual mode
-  vnoremap K :m '<-2<CR>gv=gv
-  vnoremap J :m '>+1<CR>gv=gv
+     " in visual mode
+    vnoremap K :m '<-2<CR>gv=gv
+    vnoremap J :m '>+1<CR>gv=gv
 
-  " in normal mode
-  nnoremap <leader>k :m .-2<CR>==
-  nnoremap <leader>j :m .+1<CR>==
+    " in normal mode
+    nnoremap <leader>k :m .-2<CR>==
+    nnoremap <leader>j :m .+1<CR>==
+ " do not make visual selection disappear
+  vnoremap > >gv
+  vnoremap < <gv
 "--
   " Usefull application switch remaps
   nnoremap <silent><nowait> <leader>sl :<C-u>!open /Applications/Slack.app<CR>

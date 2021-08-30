@@ -17,6 +17,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'gbrlsnchs/telescope-lsp-handlers.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
   " Version control stuffs "
   Plug 'sindrets/diffview.nvim'
@@ -33,5 +34,5 @@ call plug#end()
 set termguicolors
 colorscheme gruvbox
 
-" -------- Lua require ------------
+"-------- Lua require ------------
 lua require('init')
