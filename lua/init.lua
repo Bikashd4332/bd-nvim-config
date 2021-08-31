@@ -76,6 +76,8 @@
     update_debounce = 100,
   })
 --
+-- LUALINE
+require'lualine'.setup({ options = { theme = 'gruvbox' } })
 -- Telescope
 require'telescope'.load_extension('fzf')
 

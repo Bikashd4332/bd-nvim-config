@@ -4,6 +4,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'gruvbox-community/gruvbox'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/nvim-compe'
+  Plug 'hoob3rt/lualine.nvim'
 
   " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   Plug 'neovim/nvim-lspconfig'
@@ -29,6 +30,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'maxmellon/vim-jsx-pretty',
   Plug 'yuezk/vim-js'
   Plug 'tpope/vim-commentary'
+  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 call plug#end()
 
 set termguicolors
