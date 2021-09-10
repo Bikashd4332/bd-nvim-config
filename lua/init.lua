@@ -17,7 +17,6 @@
     diff_binaries = false,
     file_panel = {
       width = 35,
-      use_icons = true
     },
     key_bindings = {
       disable_defaults = true,
@@ -72,10 +71,8 @@
       ['n <leader>ghp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
       ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
     },
-    current_line_blame_delay = 1000,
-    current_line_blame_position = 'eol',
+		current_line_blame_opts = { delay = 1000, virt_text_pos = 'eol', virt_text = true },
     update_debounce = 100,
-		use_internal_diff = true
   })
 	--
 --
