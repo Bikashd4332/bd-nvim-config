@@ -83,8 +83,41 @@ local function my_mappings()
 	map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', options)
 end
 
+local function language_mapping()
+  --[[ A (very helpfull mapping which helps
+   to forget keeping track of caps lock toggle by using language mapping
+   ------
+   Execute :lmap and map every smallercase chars to its uppercase equivalent ]]
+	local fn = vim.fn;
+	local options = { noremap = true }
+	local starting_char_A = fn.char2nr('A')
+	local ending_char_Z = fn.char2nr('Z')
 
-telescope_mapping()
+	for i = starting_char_A,ending_char_Z do
+		map('l', fn.nr2char(i + 32), fn.nr2char(i), options)
+		map('l', fn.nr2char(i), fn.nr2char(i + 32), options)
+	end
+end
+
+MyMod = {}
+function MyMod.compose_scroll(delta)
+	local fn = vim.fn
+		if fn.pumvisible() ~= 0 then
+			local i = fn['complete_info']{'selected'}
+			vim.call('timer_start', 0,function() vim.api.nvim_select_popupmenu_item(i.selected + delta, vim.api.nvim_eval('v:true'), vim.api.nvim_eval('v:false'), {}) end)
+		end
+		return vim.api.nvim_eval('"\\<Ignore>"')
+ end
+
+local function compe_scroll_mapping()
+	-- nvim-compe scroll map
+ map('i', '<C-j>', 'v:lua.MyMod.compose_scroll(+4)', { noremap = true, expr = true, silent = true })
+ map('i', '<C-k>', 'v:lua.MyMod.compose_scroll(-4)', { noremap = true, expr = true, silent = true })
+end
+
 popular_mapping()
 application_switch()
 my_mappings()
+language_mapping()
+compe_scroll_mapping();
+telescope_mapping()

@@ -18,7 +18,7 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>,r', 'vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>r', 'vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap(
     'n',
     '<leader>,k',
