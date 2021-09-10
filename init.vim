@@ -6,7 +6,6 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'hrsh7th/nvim-compe'
   Plug 'hoob3rt/lualine.nvim'
 
-  " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'justinmk/vim-sneak'
@@ -34,6 +33,8 @@ call plug#begin("~/.config/nvim". "/plugged")
 call plug#end()
 
 set termguicolors
+set background=dark
+let g:gruvbox_contrast_dark='soft'
 colorscheme gruvbox
 
 "-------- Lua require ------------

@@ -26,6 +26,7 @@
         ["<leader><s-tab>"] = cb("select_prev_entry"),
         ["<leader>gde"] = cb("focus_files"),
         ["<leader>gdb"] = cb("toggle_files"),
+        ["<leader>gd-"] = cb("toggle_stage_entry"),
       },
       file_panel = {
         ["<leader>gdj"] = cb("next_entry"),
@@ -74,13 +75,27 @@
     current_line_blame_delay = 1000,
     current_line_blame_position = 'eol',
     update_debounce = 100,
+		use_internal_diff = true
   })
+	--
 --
--- LUALINE
-require'lualine'.setup({ options = { theme = 'gruvbox' } })
+	-- LUALINE
+	require'lualine'.setup {
+		options = {
+			theme = 'gruvbox',
+			icons_enabled = true,
+			section_separators = '',
+			component_separators = '',
+		},
+		sections = {
+			lualine_c = {'filename', 'diff'},
+			lualine_y = {{ 'diagnostics', icons_enabled = false, sources = { "nvim_lsp" }} }
+		},
+	}
+
 -- Telescope
 require'telescope'.load_extension('fzf')
-
-
 -- Language server protocol configs
 require'lsp'
+-- mappings
+require'mapping'

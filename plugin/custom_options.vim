@@ -34,7 +34,6 @@ set nowritebackup
 " even in insert mode.
 set guicursor=n-c-v:block-nCursor
 
-
 " fold configuration and fold level
 set foldmethod=indent
 set foldnestmax=2
@@ -43,7 +42,7 @@ set foldnestmax=2
 set scrolloff=8
 
 " use 2 spaces as indentation
-set tabstop=2 expandtab softtabstop=2 
+set tabstop=2 noexpandtab softtabstop=2 
 set shiftwidth=2
 set smartindent
 
