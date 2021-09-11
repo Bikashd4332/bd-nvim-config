@@ -96,3 +96,5 @@ require'telescope'.load_extension('fzf')
 require'lsp'
 -- mappings
 require'mapping'
+-- options
+require'options'

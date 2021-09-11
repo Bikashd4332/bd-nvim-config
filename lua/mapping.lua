@@ -1,8 +1,8 @@
-local g = vim.g
 local map = vim.api.nvim_set_keymap
+local nvim_set_var = vim.api.nvim_set_var
 
-g.mapleader = ' '
-g.maplocalleader = ','
+nvim_set_var('mapleader', ' ')
+nvim_set_var('maplocalleader', ',')
 
 local function telescope_mapping()
 	local options = { noremap = true, silent = true, nowait = true }
@@ -102,9 +102,18 @@ end
 MyMod = {}
 function MyMod.compose_scroll(delta)
 	local fn = vim.fn
+	local nvim_eval = vim.api.nvim_eval
+	local nvim_select_popupmenu_item = vim.api.nvim_select_popupmenu_item
+	local call = vim.call
 		if fn.pumvisible() ~= 0 then
 			local i = fn['complete_info']{'selected'}
-			vim.call('timer_start', 0,function() vim.api.nvim_select_popupmenu_item(i.selected + delta, vim.api.nvim_eval('v:true'), vim.api.nvim_eval('v:false'), {}) end)
+			call(
+				'timer_start',
+				0,
+				function()
+					nvim_select_popupmenu_item(i.selected + delta, nvim_eval('v:true'), nvim_eval('v:false'), {})
+				end
+			)
 		end
 		return vim.api.nvim_eval('"\\<Ignore>"')
  end
