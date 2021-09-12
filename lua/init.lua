@@ -82,16 +82,19 @@
 			theme = 'gruvbox',
 			icons_enabled = true,
 			section_separators = '',
-			component_separators = '',
+			component_separators = '|',
 		},
 		sections = {
 			lualine_c = {'filename', 'diff'},
 			lualine_y = {{ 'diagnostics', icons_enabled = false, sources = { "nvim_lsp" }} }
 		},
 	}
-
--- Telescope
-require'telescope'.load_extension('fzf')
+--
+	-- Telescope
+	require'telescope'.load_extension('fzf')
+--
+-- alpha-nvim
+require'alpha-nvim'
 -- Language server protocol configs
 require'lsp'
 -- mappings

@@ -120,8 +120,8 @@ function MyMod.compose_scroll(delta)
 
 local function compe_scroll_mapping()
 	-- nvim-compe scroll map
- map('i', '<C-j>', 'v:lua.MyMod.compose_scroll(+4)', { noremap = true, expr = true, silent = true })
- map('i', '<C-k>', 'v:lua.MyMod.compose_scroll(-4)', { noremap = true, expr = true, silent = true })
+	map('i', '<C-j>', 'v:lua.MyMod.compose_scroll(+4)', { noremap = true, expr = true, silent = true })
+	map('i', '<C-k>', 'v:lua.MyMod.compose_scroll(-4)', { noremap = true, expr = true, silent = true })
 end
 
 popular_mapping()

@@ -1,6 +1,7 @@
 call plug#begin("~/.config/nvim". "/plugged")
   " List of all plugins
   Plug 'christoomey/vim-tmux-navigator'
+	Plug 'goolord/alpha-nvim'
   Plug 'gruvbox-community/gruvbox'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/nvim-compe'
