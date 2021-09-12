@@ -67,8 +67,10 @@ local function my_mappings()
 	map('n', '<leader>zl', '<cmd>set list!<CR', options)
   -- Open terminal
 	map('n', '<leader>t', '<cmd>10split term://zsh<CR>', options)
-  -- toggle Explorer with Lexplorer
-	map('n', '<leader>e', '<cmd>Lexplore<CR>',options)
+  -- open Lxplorer with respect to current file
+	map('n', '<leader>fe', "<cmd>execute ':Lexplore'. expand('%:p:h')<CR>",options)
+	-- toggle Lexplore.
+	map('n', '<leader>e', "<cmd>Lexplore<CR>",options)
   -- Delete the current buffer
 	map('n', '<leader>bd', '<cmd>bd<CR>', options)
   -- Go to the previous buffer
