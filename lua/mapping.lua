@@ -21,7 +21,7 @@ local function telescope_mapping()
   -- list all available branches
   map('n', '<leader>gs', ':<C-u>Telescope git_stashes<cr>', options)
   -- list all the opened buffers
-  map('n', '<leader>gs', ':<C-u>Telescope git_buffers<cr>', options)
+  map('n', '<leader>bb', ':<C-u>Telescope buffers<cr>', options)
 end
 
 local function popular_mapping()
@@ -130,5 +130,5 @@ popular_mapping()
 application_switch()
 my_mappings()
 language_mapping()
-compe_scroll_mapping();
+compe_scroll_mapping()
 telescope_mapping()

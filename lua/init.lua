@@ -92,7 +92,6 @@
 --
 	-- Telescope
 	require'telescope'.load_extension('fzf')
---
 -- alpha-nvim
 require'alpha-nvim'
 -- Language server protocol configs

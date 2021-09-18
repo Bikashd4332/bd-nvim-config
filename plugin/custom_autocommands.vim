@@ -9,3 +9,7 @@
 	" disable folding for few buffers
   autocmd FileType alpha set showtabline=0 | set nofoldenable | autocmd BufUnload <buffer> set showtabline=2
   autocmd FileType DiffviewFiles windo set nolist
+"--
+	" map q as quit for all git related buffers
+  autocmd FileType git nmap q :quitall!<CR>
+  autocmd FileType diff nmap q :quitall!<CR>
