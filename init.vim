@@ -6,6 +6,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/nvim-compe'
   Plug 'hoob3rt/lualine.nvim'
+	Plug 'SirVer/ultisnips'
 
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'

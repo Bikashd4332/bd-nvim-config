@@ -1,0 +1,112 @@
+snippet component "A dummy empty react component" b
+import React, { FunctiomComponent } from 'react';
+
+const ${1:EnterComponentName} : FunctionComponent<${2:{$3}}> = (${4:{$5}}) => {
+	return (
+		$0
+	);
+};
+
+export default $1;
+endsnippet
+
+snippet interface "interface delcaration" w
+${1:export }interface I${2:Name}${3: extends $4} {
+	$4
+}
+$0
+endsnippet
+
+snippet type "type declaration" w
+${1:export }type T${2:Name} = $0;
+endsnippet
+
+snippet b "A generic styled Box" w
+<Box
+ $1
+>
+	$0
+</Box>
+endsnippet
+
+snippet bf "A generic styled Box" w
+<Box
+ display="flex"
+ $1
+>
+	$0
+</Box>
+endsnippet
+
+snippet p "A generic styled Box" w
+<Typography
+ $1
+>
+	$0
+</Typography>
+endsnippet
+
+snippet ssq "styled system media query" w
+{{ mobileXs: '$2', tabletMd: '$0' }}
+endsnippet
+
+
+snippet baimg "Box as img" b
+<Box
+	//@ts-expect-error
+	as="img"
+	display="block"
+	width={{ mobileXs: '$4', tabletMd: '$5' }}
+	height={{ mobileXs: '$4', tabletMd: '$5' }}
+	src={${2:getCFSanitizedImageUrl($3)}}
+/>
+$0
+endsnippet
+
+# ======= START:  VALUES FOR HANDY STYLEGUIDE replacements=======
+snippet "(120px|12rem)" "fontSize xxl3" rw
+webXxl3
+endsnippet
+snippet "(80px|8\.0rem)" "fontSize xxl3" rw
+webXxl2
+endsnippet
+snippet "(56px|5\.6rem)" "fontSize xxl3" rw
+webXxl
+endsnippet
+snippet "(48px|4\.8rem)" "fontSize xxl3" rw
+mobXxl2
+endsnippet
+snippet "(40px|4\.0rem)" "fontSize xxl3" rw
+${1:webXl}${2:mobXxl}
+endsnippet
+snippet "(32px|3\.2rem)" "fontSize xxl3" rw
+${1:xxl3}${2:webL}${3:mobXl}
+endsnippet
+snippet "(28px|2\.8rem)" "fontSize xxl2" rw
+xxl2
+endsnippet
+snippet "(24px|2\.4rem)" "fontSize xxl" rw
+${1:xxl}${2:webM}${3:mobL}
+endsnippet
+snippet "(20px|2\.0rem)" "fontSize xl" rw
+xl
+endsnippet
+snippet "(18px|1\.8rem)" "fontSize l" rw
+l
+endsnippet
+snippet "(16px|1\.6rem)" "fontSize m" rw
+${1:m}${2:webS}${3:mobM}
+endsnippet
+snippet "(14px|1\.4rem)" "fontSize s" rw
+s
+endsnippet
+snippet "(12px|1\.2rem)" "fontSize xs" rw
+${1:xs}${2:mobS}
+endsnippet
+snippet "(8px|0\.8rem)" "fontSize xxs" rw
+${1:xxs}${2:webXs}${3:mobXs}
+endsnippet
+snippet "(4px|0\.4rem)" "fontSize xxs" rw
+${2:webXxs}${3:mobXxs}
+endsnippet
+# ======= END: VALUES FOR HANDY STYLEGUIDE replacements=======
