@@ -1,7 +1,10 @@
 snippet component "A dummy empty react component" b
-import React, { FunctiomComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
-const ${1:EnterComponentName} : FunctionComponent<${2:{$3}}> = (${4:{$5}}) => {
+import Box from '@/reusable-components/Box.new'
+import Typography from '@/reusable-components/Typography';
+
+const ${1:EnterComponentName}: FunctionComponent<${2:{$3}}> = (${4:{${3/:\s+[a-zA-Z<>,|]+,/,/g}}}) => {
 	return (
 		$0
 	);
@@ -22,26 +25,19 @@ ${1:export }type T${2:Name} = $0;
 endsnippet
 
 snippet b "A generic styled Box" w
-<Box
- $1
->
+<Box $1>
 	$0
 </Box>
 endsnippet
 
 snippet bf "A generic styled Box" w
-<Box
- display="flex"
- $1
->
+<Box display="flex" $1>
 	$0
 </Box>
 endsnippet
 
 snippet p "A generic styled Box" w
-<Typography
- $1
->
+<Typography $1>
 	$0
 </Typography>
 endsnippet
