@@ -11,7 +11,7 @@ local function telescope_mapping()
   -- find symbol for current document.
   map('n', '<leader>o', ':<C-u>Telescope lsp_document_symbols<cr>', options)
   -- List the files via FZF
-  map('n', '<leader><leader>', ':<C-u>Telescope find_files<cr>', options)
+  map('n', '<leader><leader>', ':<C-u>Telescope git_files<cr>', options)
   -- Fuzzy search for helptags
   map('n', '<leader>h', ':<C-u>Telescope help_tags<cr>', options)
   -- Find file using grepping keywords
