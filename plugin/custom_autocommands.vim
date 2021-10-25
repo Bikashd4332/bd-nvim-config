@@ -13,3 +13,6 @@
 	" map q as quit for all git related buffers
   autocmd FileType git nmap q :quitall!<CR>
   autocmd FileType diff nmap q :quitall!<CR>
+"--
+	"	Add shellcheck as makeprg for sh, bash, zsh files
+	autocmd FileType sh set makeprg=shellcheck\ -f\ gcc

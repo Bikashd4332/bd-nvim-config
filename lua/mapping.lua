@@ -18,8 +18,6 @@ local function telescope_mapping()
   map('n', '<leader>/', ':<C-u>Telescope live_grep<cr>', options)
   -- list all available branches
   map('n', '<leader>gb', ':<C-u>Telescope git_branches<cr>', options)
-  -- list all available branches
-  map('n', '<leader>gs', ':<C-u>Telescope git_stashes<cr>', options)
   -- list all the opened buffers
   map('n', '<leader>bb', ':<C-u>Telescope buffers<cr>', options)
 end
@@ -74,9 +72,9 @@ local function my_mappings()
   -- Delete the current buffer
 	map('n', '<leader>bd', '<cmd>bd<CR>', options)
   -- Go to the previous buffer
-	map('n', '<leader>bd', '<cmd>bp<CR>', options)
+	map('n', '<leader>b<', '<cmd>bp<CR>', options)
   -- Go to the next buffer
-	map('n', '<leader>b>', '<cmd>bpnCR>', options)
+	map('n', '<leader>b>', '<cmd>bn<CR>', options)
   -- Write the buffer content to file
 	map('n', '<leader>fs', '<cmd>w<CR>', options)
 	-- Close the current tab.
