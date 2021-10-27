@@ -61,8 +61,18 @@ end
 
 local function my_mappings()
 	local options = { silent = true, nowait = true }
+	-- go to first tab
+	map('n', '<leader>1', '1gt<CR>', options)
+	-- go to second tab
+	map('n', '<leader>2', '2gt<CR>', options)
+	-- go to third tab
+	map('n', '<leader>3', '3gt<CR>', options)
+	-- go to frouth tab
+	map('n', '<leader>3', '3gt<CR>', options)
 	-- toggle list visibility.
-	map('n', '<leader>zl', '<cmd>set list!<CR', options)
+	map('n', '<leader>zl', '<cmd>set list!<CR>', options)
+	-- Close the current tab.
+	map('n', 'td', '<cmd>tabclose<CR>', options)
   -- Open terminal
 	map('n', '<leader>t', '<cmd>10split term://zsh<CR>', options)
   -- open Lxplorer with respect to current file
@@ -77,8 +87,6 @@ local function my_mappings()
 	map('n', '<leader>b>', '<cmd>bn<CR>', options)
   -- Write the buffer content to file
 	map('n', '<leader>fs', '<cmd>w<CR>', options)
-	-- Close the current tab.
-	map('n', '<leader>tq', '<cmd>tabclose<CR>', options)
 	-- open diffview
 	map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', options)
 end

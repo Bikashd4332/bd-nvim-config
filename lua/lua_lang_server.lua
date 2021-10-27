@@ -1,6 +1,6 @@
 local split = vim.fn.split
 
-local sumneko_root_path = "/Users/bikashdas/Downloads/lua-language-server"
+local sumneko_root_path = "/Users/bikash/Downloads/lua-language-server"
 local sumneko_bin_path = sumneko_root_path .. "/bin/" .. "macOS" .. "/lua-language-server"
 
 local runtime_path = split(package.path, ';')
