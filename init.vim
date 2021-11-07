@@ -7,6 +7,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'hrsh7th/nvim-compe'
   Plug 'hoob3rt/lualine.nvim'
 	Plug 'SirVer/ultisnips'
+	Plug 'github/copilot.vim'
 
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
@@ -37,6 +38,10 @@ call plug#end()
 set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_italic=1
+set t_ZH=[3m
+set t_ZR=[23m
+highlight Comment cterm=italic
 colorscheme gruvbox
 
 "-------- Lua require ------------

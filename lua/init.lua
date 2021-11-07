@@ -84,10 +84,6 @@
 			section_separators = '',
 			component_separators = '|',
 		},
-		sections = {
-			lualine_c = {'filename', 'diff'},
-			lualine_y = {{ 'diagnostics', icons_enabled = false, sources = { "nvim_lsp" }} }
-		},
 	}
 --
 	-- Telescope
