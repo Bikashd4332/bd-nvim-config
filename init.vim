@@ -1,19 +1,22 @@
 call plug#begin("~/.config/nvim". "/plugged")
-  " List of all plugins
+   " List of all plugins
   Plug 'christoomey/vim-tmux-navigator'
 	Plug 'goolord/alpha-nvim'
   Plug 'gruvbox-community/gruvbox'
-  Plug 'ray-x/lsp_signature.nvim'
+  " Plug 'ray-x/lsp_signature.nvim'
   Plug 'hrsh7th/nvim-compe'
   Plug 'hoob3rt/lualine.nvim'
 	Plug 'SirVer/ultisnips'
 	Plug 'github/copilot.vim'
 
   Plug 'neovim/nvim-lspconfig'
+	Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'justinmk/vim-sneak'
   Plug 'tpope/vim-surround'
   Plug 'jiangmiao/auto-pairs'
+	Plug 'skanehira/gh.vim'
 
   " fuzzy file finder integration
   Plug 'nvim-lua/popup.nvim'
@@ -30,15 +33,17 @@ call plug#begin("~/.config/nvim". "/plugged")
 
   " Language extension --- > currently only (js)
   Plug 'maxmellon/vim-jsx-pretty',
+	" Plug 'leafgarland/typescript-vim'
   Plug 'yuezk/vim-js'
   Plug 'tpope/vim-commentary'
-  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
 call plug#end()
 
 set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_italic=1
+let g:gh_token='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'
 set t_ZH=[3m
 set t_ZR=[23m
 highlight Comment cterm=italic

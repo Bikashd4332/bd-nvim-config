@@ -1,54 +1,92 @@
 local nvim_lsp = require('lspconfig')
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
-  -- Helpers
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- enable null-ls integration (optional)
+require("null-ls").config {}
+require("lspconfig")["null-ls"].setup {}
 
-  -- Mappings
-  local opts = { noremap=true, silent=true }
+-- make sure to only run this once!
+nvim_lsp.tsserver.setup {
+	-- Only needed for inlayHints. Merge this table with your settings or copy
+	-- it from the source if you want to add your own init_options.
+	init_options = require("nvim-lsp-ts-utils").init_options,
+	--
+	on_attach = function(client, bufnr)
+		-- disable tsserver formatting if you plan on formatting via null-ls
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'go', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>r', 'vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap(
-    'n',
-    '<leader>,k',
-    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-    opts
-  )
-  buf_set_keymap('n', '<leader>,f', '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>', opts)
-  buf_set_keymap('n', '<leader>,c', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+		local ts_utils = require("nvim-lsp-ts-utils")
 
-  -- See :help lsp_signature.nvim
-  require'lsp_signature'.on_attach({
-    bind = true,
-    handler_opts = {
-      hint_enable = false,
-      border = "single",
-    }
-  })
-end
+		-- defaults
+		ts_utils.setup {
+			debug = false,
+			disable_commands = false,
+			enable_import_on_completion = false,
 
+			-- import all
+			import_all_timeout = 5000, -- ms
+			-- lower numbers indicate higher priority
+			import_all_priorities = {
+				same_file = 1, -- add to existing import statement
+				local_files = 2, -- git files or files with relative path markers
+				buffer_content = 3, -- loaded buffer content
+				buffers = 4, -- loaded buffer names
+			},
+			import_all_scan_buffers = 100,
+			import_all_select_source = false,
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = {'tsserver' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-  }
-end
+			-- eslint
+			eslint_enable_code_actions = true,
+			eslint_enable_disable_comments = true,
+			eslint_bin = "eslint_d",
+			eslint_enable_diagnostics = true,
+			eslint_opts = {},
+
+			-- formatting
+			enable_formatting = true,
+			formatter = "eslint_d",
+			formatter_opts = { "--fix" },
+
+			-- update imports on file move
+			update_imports_on_move = false,
+			require_confirmation_on_move = false,
+			watch_dir = nil,
+
+			-- filter diagnostics
+			filter_out_diagnostics_by_severity = {},
+			filter_out_diagnostics_by_code = {},
+
+			-- inlay hints
+			auto_inlay_hints = true,
+			inlay_hints_highlight = "Comment",
+		}
+
+		-- required to fix code action ranges and filter diagnostics
+		ts_utils.setup_client(client)
+
+		-- no default maps, so you may want to define some here
+		local opts = { silent = true }
+		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
+		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
+		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'go', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+		vim.api.nvim_buf_set_keymap(
+			bufnr,
+			'n',
+			'<leader>,k',
+			'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+			opts
+		)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>,c', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	end
+}
 
 -- Use lua language server
 require'lua_lang_server';
@@ -59,5 +97,5 @@ telescope.load_extension('lsp_handlers')
 
 -- Use nvim-compe for lsp auto completion
 require'compe_config'
-require'lsp_diagnostics'
+-- require'lsp_diagnostics'
 

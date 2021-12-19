@@ -23,6 +23,8 @@ local global_options = {
 	hlsearch = false,
 	-- always prefer bottom horizontal split
 	splitbelow = true,
+	-- always prefer right vertical split
+	splitright = true,
 	-- making vim not crate any swap file or backup
 	backupcopy = 'yes',
 	backup = false,

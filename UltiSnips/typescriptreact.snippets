@@ -49,12 +49,12 @@ endsnippet
 
 snippet baimg "Box as img" b
 <Box
-	//@ts-expect-error
+	// @ts-expect-error
 	as="img"
 	display="block"
-	width={{ mobileXs: '$4', tabletMd: '$5' }}
-	height={{ mobileXs: '$4', tabletMd: '$5' }}
-	src={${2:getCFSanitizedImageUrl($3)}}
+	width={{ mobileXs: '$3', tabletMd: '$4' }}
+	height={{ mobileXs: '$4', tabletMd: '$6' }}
+	src={${1:getCFSanitizedImageUrl($2)}}
 />
 $0
 endsnippet

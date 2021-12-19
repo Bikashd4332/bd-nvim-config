@@ -89,6 +89,10 @@ local function my_mappings()
 	map('n', '<leader>fs', '<cmd>w<CR>', options)
 	-- open diffview
 	map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', options)
+	-- Lemme quickly run a command right now.
+	map('n', '<leader>r', ':!', options)
+	-- toogle alpha vim.
+	map('n', '\\a', '<cmd>Alpha<CR>', options)
 end
 
 local function language_mapping()
