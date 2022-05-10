@@ -1,11 +1,14 @@
 local nvim_lsp = require('lspconfig')
+local null_ls = require('null-ls')
 
 -- enable null-ls integration (optional)
-require("null-ls").setup({
+null_ls.setup({
     sources = {
-        require("null-ls").builtins.formatting.stylua,
-        require("null-ls").builtins.diagnostics.eslint,
-        require("null-ls").builtins.completion.spell,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.completion.spell,
+				null_ls.builtins.code_actions.refactoring,
+				null_ls.builtins.code_actions.shellcheck,
     },
 })
 
@@ -75,6 +78,7 @@ nvim_lsp.tsserver.setup {
 		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
 		-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
 		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'go', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
+		vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>,a', '<cmd>lua vim.lsp.buf.range_code_action()<cr>', opts)
 		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 		vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
