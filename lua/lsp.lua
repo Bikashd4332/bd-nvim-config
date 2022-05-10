@@ -1,8 +1,13 @@
 local nvim_lsp = require('lspconfig')
 
 -- enable null-ls integration (optional)
-require("null-ls").config {}
-require("lspconfig")["null-ls"].setup {}
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.diagnostics.eslint,
+        require("null-ls").builtins.completion.spell,
+    },
+})
 
 -- make sure to only run this once!
 nvim_lsp.tsserver.setup {
