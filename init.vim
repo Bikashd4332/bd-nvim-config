@@ -17,6 +17,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'tpope/vim-surround'
   Plug 'jiangmiao/auto-pairs'
 	Plug 'skanehira/gh.vim'
+	Plug 'kyazdani42/nvim-tree.lua'
 
   " fuzzy file finder integration
   Plug 'nvim-lua/popup.nvim'

@@ -68,20 +68,22 @@ local function my_mappings()
 	-- go to third tab
 	map('n', '<leader>3', '3gt<CR>', options)
 	-- go to frouth tab
-	map('n', '<leader>3', '3gt<CR>', options)
+	map('n', '<leader>4', '4gt<CR>', options)
 	-- toggle list visibility.
 	map('n', '<leader>zl', '<cmd>set list!<CR>', options)
 	-- Close the current tab.
 	map('n', 'td', '<cmd>tabclose<CR>', options)
   -- Open terminal
 	map('n', '<leader>t', '<cmd>10split term://zsh<CR>', options)
-  -- open Lxplorer with respect to current file
-	map('n', '<leader>fe', "<cmd>execute ':Lexplore'. expand('%:p:h')<CR>",options)
 	-- toggle Lexplore.
-	map('n', '<leader>e', "<cmd>Lexplore<CR>",options)
+	map('n', '<leader>et', "<cmd>NvimTreeToggle<CR>",options)
+	-- Find file in nvim tree
+	map('n', '<leader>ef', "<cmd>NvimTreeFindFile<CR>",options)
+	-- nvim tree collapse
+	map('n', '<leader>ec', "<cmd>NvimTreeCollapse<CR>",options)
   -- Delete the current buffer
 	map('n', '<leader>bd', '<cmd>bd<CR>', options)
-  -- Go to the previous buffer
+  -- Go to the previcus buffer
 	map('n', '<leader>b<', '<cmd>bp<CR>', options)
   -- Go to the next buffer
 	map('n', '<leader>b>', '<cmd>bn<CR>', options)

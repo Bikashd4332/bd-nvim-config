@@ -34,7 +34,7 @@
         ["<leader>gdo"] = cb("select_entry"),
         ["<leader>gdS"] = cb("stage_all"),
 
-        ["<leader>gdU"] = cb("unstag_all"),
+        -- ["<leader>gdU"] = cb("unstag_all"),
         ["<leader>gdx"] = cb("restore_entry"),
         ["<leader>gdR"] = cb("refresh_files"),
         ["<leader>gd<tab>"] = cb("select_next_entry"),
@@ -96,3 +96,4 @@ require'lsp'
 require'mapping'
 -- options
 require'options'
+require'nvim_tree_config'
