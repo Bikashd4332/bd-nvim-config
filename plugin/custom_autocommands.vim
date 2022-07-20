@@ -11,3 +11,10 @@
 "--
 	"	Add shellcheck as makeprg for sh, bash, zsh files
 	autocmd FileType sh set makeprg=shellcheck\ -f\ gcc
+
+"--
+	" Add a command for clearing quickfix list.
+	function ClearQuickFixList()
+		call setqflist([])
+	endfunction
+ command! ClearQuickFixList :call ClearQuickFixList()

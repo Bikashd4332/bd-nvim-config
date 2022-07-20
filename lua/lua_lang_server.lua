@@ -1,7 +1,6 @@
 local split = vim.fn.split
 
-local sumneko_root_path = "/Users/bikash/Downloads/lua-language-server"
-local sumneko_bin_path = sumneko_root_path .. "/bin/" .. "macOS" .. "/lua-language-server"
+local sumneko_bin_path = "/opt/homebrew/bin/lua-language-server"
 
 local runtime_path = split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
@@ -40,7 +39,7 @@ end
 -- local on_attach = function
 
 require'lspconfig'.sumneko_lua.setup {
-  cmd = { sumneko_bin_path, "-E", sumneko_root_path .. "/main.lua"  },
+  cmd = { sumneko_bin_path },
 	on_attach = on_attach,
   settings = {
     Lua = {

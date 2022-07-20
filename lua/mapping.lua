@@ -95,6 +95,8 @@ local function my_mappings()
 	map('n', '<leader>r', ':!', options)
 	-- toogle alpha vim.
 	map('n', '\\a', '<cmd>Alpha<CR>', options)
+	-- clear quickfix list
+	map('n', '<leader>cf', '<cmd>ClearQuickFixList<CR>', options)
 end
 
 local function language_mapping()

@@ -38,6 +38,7 @@ call plug#begin("~/.config/nvim". "/plugged")
 	" Plug 'leafgarland/typescript-vim'
   Plug 'yuezk/vim-js'
   Plug 'tpope/vim-commentary'
+	Plug 'dhruvasagar/vim-dotoo'
 
 call plug#end()
 
