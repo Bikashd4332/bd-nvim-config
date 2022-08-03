@@ -39,6 +39,7 @@ call plug#begin("~/.config/nvim". "/plugged")
   Plug 'yuezk/vim-js'
   Plug 'tpope/vim-commentary'
 	Plug 'dhruvasagar/vim-dotoo'
+	Plug 'ThePrimeagen/harpoon'
 
 call plug#end()
 

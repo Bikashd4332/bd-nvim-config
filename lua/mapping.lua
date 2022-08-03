@@ -20,6 +20,8 @@ local function telescope_mapping()
   map('n', '<leader>gb', ':<C-u>Telescope git_branches<cr>', options)
   -- list all the opened buffers
   map('n', '<leader>bb', ':<C-u>Telescope buffers<cr>', options)
+  -- list all the available man pages.
+  map('n', '<leader>m', ':<C-u>Telescope man_pages<cr>', options)
 end
 
 local function popular_mapping()
@@ -97,6 +99,21 @@ local function my_mappings()
 	map('n', '\\a', '<cmd>Alpha<CR>', options)
 	-- clear quickfix list
 	map('n', '<leader>cf', '<cmd>ClearQuickFixList<CR>', options)
+	-- Create a new tab.
+	map('n', '<C-n>', '<cmd>tabnew | Telescope git_files <CR>', options)
+
+		-- Terminal commands
+	-- ueoa is first through fourth finger left hand home row.
+	-- This just means I can crush, with opposite hand, the 4 terminal positions
+	--
+	-- These functions are stored in harpoon.  A plugn that I am developing
+	map("n", ",qa", '<cmd>lua require("harpoon.mark").add_file()<CR>', options)
+	map("n", ",qq", '<cmd>lua  require("harpoon.ui").toggle_quick_menu()<CR>', options)
+
+	map("n", ",1", '<cmd>lua  require("harpoon.ui").nav_file(1)<CR>', options)
+	map("n", ",2", '<cmd>lua  require("harpoon.ui").nav_file(2)<CR>', options)
+	map("n", ",3", '<cmd>lua  require("harpoon.ui").nav_file(3)<CR>', options)
+	map("n",",4", '<cmd>lua  require("harpoon.ui").nav_file(4)<CR>', options)
 end
 
 local function language_mapping()
